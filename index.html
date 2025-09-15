@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nafisa Tanjim Portfolio</title>
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+
+<style>
+  /* Smooth scrolling for anchor links */
+  html { scroll-behavior: smooth; }
+
+ 
+  /* Scroll progress bar fill */
+  #progress-bar { height: 100%; background: #1D4ED8; width: 0%; }
+
+  /* Fade-up animation for elements on scroll */
+  .fade-up { opacity: 0; transform: translateY(30px); animation: fadeUp linear 1s forwards; }
+  .fade-up.delay-1 { animation-delay: 0.2s; }
+  .fade-up.delay-2 { animation-delay: 0.4s; }
+  .fade-up.delay-3 { animation-delay: 0.6s; }
+  .fade-up.delay-4 { animation-delay: 0.8s; }
+  .fade-up.delay-5 { animation-delay: 1s; }
+  .fade-up.delay-6 { animation-delay: 1.2s; }
+  .fade-up.delay-7 { animation-delay: 1.4s; }
+  .fade-up.delay-8 { animation-delay: 1.6s; }
+
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .animate-fade-in { animation: fadeIn 1s ease forwards; }
+
+  nav a.active { color: #1D4ED8; font-weight: bold;}
+
+  /* Back to top button */
+  #back-to-top {
+    position: fixed; bottom-8; right-8;
+    background: #1D4ED8; color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 50%; cursor: pointer;
+    font-size: 1.5rem;
+    display: flex; justify-center; align-items: center;
+    z-index: 50; opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+  }
+  #back-to-top.show { opacity: 1; transform: translateY(0); }
+  #back-to-top:hover { background: #2563EB; }
+
+  /* Floating student profile image */
+  #floating-image {
+    position: fixed; top: 50%; right: 2rem;
+    width: 120px; height: 120px;
+    border-radius: 50%; border: 4px solid #1D4ED8;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transform: translateY(-50%) scale(0);
+    opacity: 0;
+    transition: all 0.6s ease;
+    z-index: 40;
+  }
+  #floating-image.show { opacity: 1; transform: translateY(-50%) scale(1); }
+
+  .name-font {
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem; /* Base size */
+    background: linear-gradient(90deg, #1D4ED8, #2563EB); /* Blue gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.2); /* subtle shadow */
+    transition: all 0.3s ease;
+  }
+
+  .name-font:hover {
+    transform: scale(1.1);
+    text-shadow: 4px 4px 12px rgba(0,0,0,0.3); /* stronger shadow on hover */
+    cursor: pointer;
+  }
+
+  /* Responsive size */
+  @media (min-width: 768px) {
+    .name-font {
+      font-size: 3rem;
+    }
+  }
+</style>
+</head>
+
+<body class="bg-gray-100 text-gray-800 relative">
+<!-- bg-gray-100: light gray background -->
+<!-- text-gray-800: default dark text -->
+<!-- relative: positioning context -->
+
+
+
+<!-- Floating Student Image -->
+<img src="esha.png" alt="Nafisa Tanjim" id="floating-image"> 
+
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 w-full bg-white shadow z-50">
+  <!-- fixed: stick to top -->
+  <!-- w-full: full width -->
+  <!-- bg-white: background color -->
+  <!-- shadow: drop shadow -->
+  <!-- z-50: on top of all content -->
+  <div class="max-w-6xl mx-auto flex justify-between items-center px-4 md:px-6 py-3 md:py-4">
+    <!-- max-w-6xl: max width container -->
+    <!-- mx-auto: center horizontally -->
+    <!-- flex: horizontal layout -->
+    <!-- justify-between: space between logo & menu -->
+    <!-- items-center: vertical alignment center -->
+    <!-- px-4 md:px-6: horizontal padding; responsive -->
+    <!-- py-3 md:py-4: vertical padding; responsive -->
+
+    <a href="#hero" class="text-xl font-bold text-red-600 name-font">Nafisha Tanjim</a> 
+    <!-- text-xl: font size -->
+    <!-- font-bold: bold text -->
+    <!-- text-red-600: red color -->
+
+    <!-- Mobile Menu Toggle -->
+    <div class="md:hidden relative">
+      <input type="checkbox" id="menu-toggle" class="peer absolute top-4 right-6 w-6 h-6 opacity-0 z-20 cursor-pointer">
+      <!-- invisible checkbox triggers mobile menu -->
+      <label for="menu-toggle" class="flex flex-col space-y-1 cursor-pointer absolute top-4 right-6 z-10">
+        <!-- hamburger icon -->
+        <span class="block w-6 h-0.5 bg-gray-800"></span>
+        <span class="block w-6 h-0.5 bg-gray-800"></span>
+        <span class="block w-6 h-0.5 bg-gray-800"></span>
+      </label>
+      <div class="peer-checked:block hidden absolute top-full right-0 w-48 bg-white shadow-md rounded-md py-2">
+        <!-- peer-checked:block: show menu when checked -->
+        <a href="#hero" class="block px-4 py-2 hover:bg-gray-100">Home</a>
+        <a href="#about" class="block px-4 py-2 hover:bg-gray-100">About</a>
+        <a href="#skills" class="block px-4 py-2 hover:bg-gray-100">Skills</a>
+        <a href="#projects" class="block px-4 py-2 hover:bg-gray-100">Projects</a>
+        <a href="#contact" class="block px-4 py-2 hover:bg-gray-100">Contact</a>
+      </div>
+    </div>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex space-x-6">
+      <!-- hidden: hidden on small screens -->
+      <!-- md:flex: flex on medium+ screens -->
+      <!-- space-x-6: spacing between links -->
+      <a href="#hero" class="hover:text-blue-600">Home</a>
+      <a href="#about" class="hover:text-blue-600">About</a>
+      <a href="#skills" class="hover:text-blue-600">Skills</a>
+      <a href="#projects" class="hover:text-blue-600">Projects</a>
+      <a href="#contact" class="hover:text-blue-600">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="hero" class="bg-blue-600 text-white h-screen flex flex-col justify-center items-center text-center pt-24 md:pt-28 fade-up">
+  <!-- bg-blue-600: background -->
+  <!-- text-white: text color -->
+  <!-- h-screen: full viewport height -->
+  <!-- flex flex-col: vertical layout -->
+  <!-- justify-center items-center: center content -->
+  <!-- text-center: center text -->
+  <!-- pt-24 md:pt-28: padding top responsive -->
+  <!-- fade-up: scroll animation -->
+
+  <img src="esha.png" alt="Nafisa Tanjim" class="w-32 h-32 md:w-48 md:h-48 rounded-full border-4 border-white shadow-lg mb-4 md:mb-6 animate-fade-in">
+  <!-- w-32 h-32: width/height 8rem -->
+  <!-- md:w-48 md:h-48: 12rem on medium+ screens -->
+  <!-- rounded-full: circular image -->
+  <!-- border-4 border-white: border thickness & color -->
+  <!-- shadow-lg: shadow effect -->
+  <!-- mb-4 md:mb-6: margin bottom responsive -->
+  <!-- animate-fade-in: fade-in animation -->
+
+  <h1 class="text-3xl md:text-5xl font-bold mb-2 md:mb-4 ">Hi, I'm Nafisha Tanjim</h1>
+  <!-- text-3xl md:text-5xl: font size responsive -->
+  <!-- font-bold: bold -->
+  <!-- mb-2 md:mb-4: margin bottom responsive -->
+<p>ashh</p>
+  <p class="text-lg md:text-xl mb-4 md:mb-6">Computer Science Student | Aspiring Web Developer</p>
+  <!-- text-lg md:text-xl: font size responsive -->
+
+  <a href="resume.pdf" download class="bg-white text-blue-600 font-semibold px-5 py-2 md:px-6 md:py-3 rounded-lg shadow hover:bg-gray-100 transition">
+    Download Resume
+  </a>
+  <!-- bg-white: background -->
+  <!-- text-blue-600: text color -->
+  <!-- font-semibold: semi-bold -->
+  <!-- px-5 py-2 md:px-6 md:py-3: padding responsive -->
+  <!-- rounded-lg: rounded corners -->
+  <!-- shadow: button shadow -->
+  <!-- hover:bg-gray-100: hover effect -->
+  <!-- transition: smooth transition -->
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-16 md:py-20 px-6 max-w-4xl mx-auto fade-up">
+  <!-- py-16 md:py-20: vertical padding, responsive -->
+  <!-- px-6: horizontal padding -->
+  <!-- max-w-4xl: max width 56rem -->
+  <!-- mx-auto: center horizontally -->
+  <!-- fade-up: scroll animation -->
+
+  <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">About Me</h2>
+  <!-- text-2xl md:text-3xl: responsive heading size -->
+  <!-- font-bold: bold text -->
+  <!-- mb-6: margin bottom -->
+  <!-- text-center: center align -->
+
+  <p class="text-gray-700 text-center leading-relaxed text-justify">
+    I would like to complete my graduation in information Technology, 
+	as it is highly respected in the IT industry and aligns with my goal of working in cloud computing and system administration. The operating system I prefer is Windows, 
+	due to its wide usage in enterprise environments and strong compatibility with Microsoft Azure services.
+	I aspire to work for a leading tech company such as Microsoft, Amazon, or Infosys, where I can grow professionally and contribute to innovative cloud and infrastructure solutions. 
+	My specialisation is in cloud computing and system administration, focusing on managing virtual machines, networking, and identity in cloud environments. 
+	Major employers in this specialisation include Amazon Web Services (AWS), Microsoft, Google Cloud, IBM, and large IT service companies like TCS, 
+	Wipro, and Accenture, which consistently seek skilled professionals in cloud and infrastructure roles.
+  </p>
+  <!-- text-gray-700: dark gray color -->
+  <!-- text-center: center paragraph -->
+  <!-- leading-relaxed: comfortable line height -->
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="py-16 md:py-20 bg-gray-200 px-6 fade-up">
+  <!-- bg-gray-200: light gray background -->
+  <!-- py-16 md:py-20: vertical padding -->
+  <!-- px-6: horizontal padding -->
+  <!-- fade-up: scroll animation -->
+
+  <h2 class="text-2xl md:text-3xl font-bold mb-10 text-center">Skills</h2>
+    <!-- text-2xl: font-size 1.5rem on mobile -->
+  <!-- md:text-3xl: font-size 1.875rem on medium+ screens -->
+  <!-- font-bold: bold text -->
+  <!-- mb-10: margin-bottom 2.5rem -->
+  <!-- text-center: center align -->
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-center">
+    <!-- grid: CSS grid layout -->
+    <!-- grid-cols-2: 2 columns on mobile -->
+    <!-- md:grid-cols-4: 4 columns on medium+ screens -->
+    <!-- gap-6: spacing between grid items -->
+    <!-- max-w-4xl: max width container -->
+    <!-- mx-auto: center horizontally -->
+    <!-- text-center: center content in each cell -->
+
+    <div class="bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-2xl hover:scale-105 transform transition fade-up delay-1">
+	   <!-- bg-white: white background -->
+      <!-- p-4: padding 1rem (mobile) -->
+      <!-- md:p-6: padding 1.5rem (medium+) -->
+      <!-- rounded-lg: rounded corners -->
+      <!-- shadow: subtle shadow -->
+      <!-- hover:shadow-2xl: large shadow on hover -->
+      <!-- hover:scale-105: slightly scale card up on hover -->
+      <!-- transform: enables scale effect -->
+      <!-- transition: smooth animation for hover effects -->
+      <!-- fade-up: animation when scrolled into view -->
+      <!-- delay-1: animation delay for stagger effect -->
+      HTML
+    </div>
+    <div class="bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-2xl hover:scale-105 transform transition fade-up delay-2">
+      CSS / Tailwind
+    </div>
+    <div class="bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-2xl hover:scale-105 transform transition fade-up delay-3">
+      JavaScript
+    </div>
+    <div class="bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-2xl hover:scale-105 transform transition fade-up delay-4">
+      React
+    </div>
+    <div class="bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-2xl hover:scale-105 transform transition fade-up delay-5">
+      PHP / MySQL
+    </div>
+    <div class="bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-2xl hover:scale-105 transform transition fade-up delay-6">
+      Git / GitHub
+    </div>
+    <div class="bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-2xl hover:scale-105 transform transition fade-up delay-7">
+      Node.js
+    </div>
+    <div class="bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-2xl hover:scale-105 transform transition fade-up delay-8">
+      Problem Solving
+    </div>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="py-16 md:py-20 px-6 max-w-6xl mx-auto fade-up">
+  <!-- py-16 md:py-20: vertical padding responsive -->
+  <!-- px-6: horizontal padding -->
+  <!-- max-w-6xl: max width 72rem -->
+  <!-- mx-auto: center container -->
+  <!-- fade-up: scroll animation -->
+
+  <h2 class="text-2xl md:text-3xl font-bold mb-10 text-center">Projects</h2>
+    <!-- grid-cols-1: single column for mobile -->
+    <!-- md:grid-cols-3: 3 columns on medium+ screens -->
+    <!-- gap-8: 2rem spacing -->
+	
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- grid-cols-1: single column on mobile -->
+    <!-- md:grid-cols-3: 3 columns on medium+ screens -->
+    <!-- gap-8: spacing between cards -->
+
+    <!-- Project Card -->
+    <div class="bg-white rounded-lg shadow p-6 hover:shadow-2xl hover:scale-105 transform transition fade-up delay-1">
+	   <!-- bg-white: card background -->
+      <!-- rounded-lg: rounded corners -->
+      <!-- shadow: subtle shadow -->
+      <!-- p-6: padding 1.5rem -->
+      <!-- hover:shadow-2xl hover:scale-105: interactive hover effects -->
+      <!-- transform + transition: smooth scale -->
+      <!-- fade-up delay-1: scroll animation with stagger -->
+	  
+      <h3 class="font-bold text-xl mb-2">Project One</h3>
+	    <!-- font-bold: bold text -->
+      <!-- text-xl: font-size 1.25rem -->
+      <!-- mb-2: margin-bottom 0.5rem -->
+      <p class="text-gray-700 mb-4">A responsive e-commerce website built with React and Tailwind CSS.</p>
+	     <!-- text-gray-700: gray text -->
+      <!-- mb-4: margin bottom 1rem -->
+      <a href="#" class="text-blue-600 font-semibold hover:underline">View Project</a>
+	  <!-- text-blue-600: blue link -->
+      <!-- font-semibold: semi-bold -->
+      <!-- hover:underline: underline on hover -->
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6 hover:shadow-2xl hover:scale-105 transform transition fade-up delay-2">
+      <h3 class="font-bold text-xl mb-2">Project Two</h3>
+      <p class="text-gray-700 mb-4">A PHP & MySQL based student management system with dynamic forms and reports.</p>
+      <a href="#" class="text-blue-600 font-semibold hover:underline">View Project</a>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6 hover:shadow-2xl hover:scale-105 transform transition fade-up delay-3">
+      <h3 class="font-bold text-xl mb-2">Project Three</h3>
+      <p class="text-gray-700 mb-4">A personal blog built with Node.js, Express, and MongoDB.</p>
+      <a href="#" class="text-blue-600 font-semibold hover:underline">View Project</a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-16 md:py-20 bg-blue-600 text-white px-6 fade-up">
+  <!-- bg-blue-600: background color -->
+  <!-- text-white: text color -->
+  <!-- py-16 md:py-20: vertical padding -->
+  <!-- px-6: horizontal padding -->
+  <!-- fade-up: scroll animation -->
+
+  <h2 class="text-2xl md:text-3xl font-bold mb-10 text-center">Contact Me</h2>
+
+  <form class="max-w-2xl mx-auto grid gap-6">
+    <!-- max-w-2xl: max width 42rem -->
+    <!-- mx-auto: center horizontally -->
+    <!-- grid gap-6: spacing between form fields -->
+
+    <input type="text" placeholder="Your Name" class="p-3 rounded-lg text-gray-800" required>
+	 <!-- p-3: padding 0.75rem -->
+    <!-- rounded-lg: rounded corners -->
+    <!-- text-gray-800: text color dark on white background -->
+	
+    <input type="email" placeholder="Your Email" class="p-3 rounded-lg text-gray-800" required>
+    <textarea placeholder="Your Message" class="p-3 rounded-lg text-gray-800" rows="5" required></textarea>
+    <button type="submit" class="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg shadow hover:bg-gray-100 transition">
+	 <!-- bg-white: button background -->
+      <!-- text-blue-600: text color -->
+      <!-- font-semibold: semi-bold text -->
+      <!-- px-6 py-3: padding -->
+      <!-- rounded-lg: rounded corners -->
+      <!-- shadow: subtle shadow -->
+      <!-- hover:bg-gray-100: background on hover -->
+      <!-- transition: smooth hover effect -->
+      Send Message
+    </button>
+  </form>
+</section>
+
+<!-- Footer Section -->
+<footer class="py-6 text-center text-gray-600">
+  <!-- py-6: vertical padding -->
+  <!-- text-center: center content -->
+  <!-- text-gray-600: gray text color -->
+  &copy; 2025 Nafisa Tanjim. All rights reserved.
+</footer>
+
+<!-- Back to top button -->
+<div id="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})" 
+     class="hidden fixed bottom-8 right-8 bg-blue-600 text-white p-2 rounded-full text-2xl flex justify-center items-center z-50 transition-opacity">
+  ↑
+  <!-- hidden: initially hidden -->
+  <!-- fixed: position fixed -->
+  <!-- bottom-8 right-8: position from corner -->
+  <!-- bg-blue-600: background color -->
+  <!-- text-white: text color -->
+  <!-- p-2: padding -->
+  <!-- rounded-full: circular button -->
+  <!-- text-2xl: font size -->
+  <!-- flex justify-center items-center: center arrow -->
+  <!-- z-50: on top of all elements -->
+  <!-- transition-opacity: smooth fade in/out -->
+</div>
+
+<script>
+<!-- JavaScript Functionality (Scroll + Floating + Back-to-top) -->
+// Select elements
+const progressBar = document.getElementById('progress-bar'); // scroll progress bar
+const backTop = document.getElementById('back-to-top');      // back-to-top button
+const floatingImage = document.getElementById('floating-image'); // floating student image
+const sections = document.querySelectorAll('section');       // all sections
+const navLinks = document.querySelectorAll('nav a');         // all nav links
+
+// Scroll event
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY; // current scroll
+  const docHeight = document.body.scrollHeight - window.innerHeight; // total scrollable height
+
+  // Set progress bar width based on scroll %
+  progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+
+  // Show/hide back-to-top button
+  if(scrollTop > 300) backTop.classList.add('show'); 
+  else backTop.classList.remove('show');
+
+  // Show/hide floating image
+  if(scrollTop > 200) floatingImage.classList.add('show'); 
+  else floatingImage.classList.remove('show');
+
+  // Floating effect
+  if(floatingImage.classList.contains('show')) {
+    const floatOffset = Math.sin(scrollTop / 200) * 15; // smooth vertical oscillation
+    floatingImage.style.transform = `translateY(calc(-50% + ${floatOffset}px)) scale(1)`;
+  }
+});
+
+// Intersection Observer to highlight nav links
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    const id = entry.target.getAttribute('id');
+    const link = document.querySelector(`nav a[href="#${id}"]`);
+
+    if(entry.isIntersecting){
+      navLinks.forEach(l => l.classList.remove('active'));
+      if(link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.6 });
+
+sections.forEach(section => observer.observe(section));
+</script>
+
+
+
+<!-- Explanation of key responsive Tailwind classes
+| Class                      | Meaning                                                 |
+| -------------------------- | ------------------------------------------------------- |
+| `px-6`                     | Horizontal padding of 1.5rem (default for all screens)  |
+| `md:px-6`                  | Horizontal padding on medium screens and above (≥768px) |
+| `py-16`                    | Vertical padding 4rem (mobile)                          |
+| `md:py-20`                 | Vertical padding 5rem on medium+ screens                |
+| `grid-cols-1`              | 1 column in a grid layout                               |
+| `md:grid-cols-3`           | 3 columns for medium+ screens                           |
+| `hover:shadow-2xl`         | Extra shadow on hover                                   |
+| `hover:scale-105`          | Slight scale-up on hover for interactive feel           |
+| `text-2xl` / `md:text-3xl` | Font size responsive                                    |
+| `max-w-4xl` / `max-w-6xl`  | Maximum width container                                 |
+-->
+</body>
+</html>
